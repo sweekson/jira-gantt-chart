@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+
+  <link rel="stylesheet" href="styles/minimalism.css">
+  <link rel="stylesheet" href="styles/app.css">
+
+  <title>Sprint Gantt Chart</title>
+</head>
+<body ng-controller="SprintCtrl as sprint">
+  <section class="hide" ng-class="{ show: sprint.loaded }">
+    <h4 ng-cloak>Gantt Chart {{sprint.assignee}}</h4>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="toolbar" data-spy="affix" data-offset-top="40">
+          <div class="row">
+            <div class="col-md-1">
+              <label for="assignee">Assignee</label>
+              <select id="assignee" class="form-control" ng-model="sprint.assignee" hashable format="#\/(\d+)?\/?(\w+)?" index="1">
+                <option value="">All</option>
+                <option ng-repeat="member in sprint.members" ng-bind="member" value="{{member}}"></option>
+              </select>
+            </div>
+
+            <div class="col-md-1">
+              <label for="task">Search Task By ID</label>
+              <input id="task" class="form-control" type="text" ng-model="sprint.task" findable>
+            </div>
+
+            <div class="col-md-4" ng-if="sprint.selected">
+              Issue #<span ng-bind="sprint.selected.id"></span>
+              <span ng-if="sprint.selected.blocked_by">blocked by <span ng-bind="sprint.selected.blocked_by"></span></span>
+              <span> - </span>
+              <span ng-bind="sprint.selected.assignee"></span>
+              <span>( <span ng-bind="sprint.selected.estimate"></span> )</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" ng-if="sprint.empty()">
+      <div class="col-sm-12">
+        <div class="alert alert-info">No related tasks.</div>
+      </div>
+    </div>
+
+    <div class="row" ng-if="!sprint.empty()">
+      <div class="col-sm-12">
+        <div class="table-sprint-heading-pane" data-spy="affix" data-offset-top="40">
+          <table id="table-sprint-heading" class="table table-minimalism table-cramped table-sprint">
+            <thead>
+              <tr ng-repeat="fields in sprint.heading">
+                <th></th>
+                <th ng-repeat="field in fields track by $index" ng-bind="field"></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        <table class="table table-minimalism table-cramped table-sprint" table-cell-crosshair heading="#table-sprint-heading" column="3">
+          <tbody>
+            <tr id="task-{{sprint.id(task[0])}}" ng-repeat="task in sprint.tasks" ng-hide="!sprint.visible(task)">
+              <td ng-class="sprint.highlight(task[0])"></td>
+              <td ng-repeat="cell in task track by $index" ng-bind="cell" ng-class="sprint.type(cell)" ng-click="sprint.select(task)"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="hide" ng-if="sprint.loaded && sprint.assignee && !sprint.empty()" ng-class="{ show: sprint.loaded }">
+    <h4>Personal Workload</h4>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="table-sprint-heading-pane" data-spy="affix" data-offset-top="40">
+          <table id="table-workload-heading" class="table table-minimalism table-cramped table-sprint">
+            <thead>
+              <tr ng-repeat="fields in sprint.heading">
+                <th></th>
+                <th></th>
+                <th></th>
+                <th ng-repeat="field in fields.slice(2) track by $index" ng-bind="field"></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        <table class="table table-minimalism table-cramped table-sprint">
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td ng-repeat="cell in sprint.notations() track by $index" ng-bind="cell" ng-class="sprint.type(cell)"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+    
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="scripts/sprint.js"></script>
+  <script src="scripts/gantt.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>

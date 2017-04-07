@@ -1,0 +1,27 @@
+
+sprint.non_working_days([
+ {
+   "date": "2017/04/03",
+   "remark": "Qingming Festival"
+ },
+ {
+   "date": "2017/04/04",
+   "remark": "Qingming Festival"
+ },
+ {
+   "date": "2017/04/05",
+   "remark": "Before Plan Date"
+ },
+ {
+   "date": "2017/04/26",
+   "remark": "After Release Date"
+ },
+ {
+   "date": "2017/04/27",
+   "remark": "After Release Date"
+ },
+ {
+   "date": "2017/04/28",
+   "remark": "After Release Date"
+ }
+]);

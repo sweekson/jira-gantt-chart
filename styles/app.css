@@ -1,0 +1,108 @@
+
+body {
+  font-family: tahoma;
+  font-size: 14px;
+  padding: 0 8px 8px;
+}
+
+section + section {
+  margin-top: 24px;
+}
+
+/* sprint table */
+
+.toolbar.affix,
+.table-sprint-heading-pane.affix {
+  background: #fff;
+  left: 8px;
+  right: 8px;
+  width: auto;
+  z-index: 999;
+}
+
+.toolbar {
+  margin-bottom: 8px;
+}
+
+.toolbar.affix {
+  margin: 0;
+  padding: 8px 0;
+  top: 0;
+}
+
+.table-sprint-heading-pane.affix {
+  top: 72px;
+}
+
+.table-sprint-heading-pane.affix + .table-sprint {
+  margin-top: 123px;
+}
+
+.table-sprint > thead > tr > th,
+.table-sprint > tbody > tr > td {
+  overflow: visible;
+  text-align: center;
+}
+
+.table-sprint > tbody > tr > td {
+  border-bottom: 1px solid #999;
+}
+
+.table-sprint > thead > tr > th:nth-child(1),
+.table-sprint > tbody > tr > td:nth-child(1) {
+  width: 1px;
+}
+
+.table-sprint > thead > tr > th:nth-child(2),
+.table-sprint > tbody > tr > td:nth-child(2) {
+  width: 50px;
+}
+
+.table-sprint > thead > tr > th:nth-child(3),
+.table-sprint > tbody > tr > td:nth-child(3) {
+  width: 100px;
+}
+
+.table-sprint > thead > tr > th:nth-child(n+4),
+.table-sprint > tbody > tr > td:nth-child(n+4) {
+  width: 5%;
+}
+
+.table-sprint > tbody > tr > td:nth-child(n+4) {
+  color: transparent;
+  cursor: default;
+}
+
+.table-sprint > tbody > tr > td.notation-weekend,
+.table-sprint > tbody > tr > td.notation-non-working {
+  background: #e6e6e6;
+}
+
+.table-sprint > tbody > tr > td.notation-weekend:hover,
+.table-sprint > tbody > tr > td.notation-non-working:hover {
+  background: #cccccc;
+}
+
+.table-sprint > tbody > tr > td.highlight {
+  background: #fce38d;
+}
+
+.table-sprint > tbody > tr > td.notation-work {
+  background: #99d5eb;
+}
+
+.table-sprint > tbody > tr > td.notation-work:hover {
+  background: #66c0e0;
+}
+
+.table-sprint > tbody > tr > td.notation-none {
+  background: #fff;
+}
+
+.table-sprint > tbody > tr > td.notation-offday {
+  background: #ffc8ad;
+}
+
+.table-sprint > tbody > tr > td.notation-offday:hover {
+  background: #ffad85;
+}
