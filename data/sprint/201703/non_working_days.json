@@ -1,0 +1,22 @@
+[
+ {
+   "Date": "2017/03/01",
+   "Remark": "Before Plan Date"
+ },
+ {
+   "Date": "2017/03/02",
+   "Remark": "Before Plan Date"
+ },
+ {
+   "Date": "2017/03/29",
+   "Remark": "After Release Date"
+ },
+ {
+   "Date": "2017/03/30",
+   "Remark": "After Release Date"
+ },
+ {
+   "Date": "2017/03/31",
+   "Remark": "After Release Date"
+ }
+]

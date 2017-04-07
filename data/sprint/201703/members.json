@@ -1,0 +1,47 @@
+[
+ {
+   "name": "Lesley",
+   "working_hours": 2,
+   "offdays": "6"
+ },
+ {
+   "name": "Pin",
+   "working_hours": 1,
+   "offdays": ""
+ },
+ {
+   "name": "Chiachi",
+   "working_hours": 0,
+   "offdays": ""
+ },
+ {
+   "name": "Vannie",
+   "working_hours": 2,
+   "offdays": ""
+ },
+ {
+   "name": "Joshua",
+   "working_hours": 4.5,
+   "offdays": ""
+ },
+ {
+   "name": "Wilson",
+   "working_hours": 5,
+   "offdays": ""
+ },
+ {
+   "name": "Austin",
+   "working_hours": 6.5,
+   "offdays": "6,7,8,13,14,15,20,21,22,27,28,29"
+ },
+ {
+   "name": "Christine",
+   "working_hours": 1,
+   "offdays": "7,14,15,16,17"
+ },
+ {
+   "name": "Theresa",
+   "working_hours": 5,
+   "offdays": "13,14,15,16,17"
+ }
+]
