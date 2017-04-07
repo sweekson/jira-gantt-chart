@@ -11,6 +11,11 @@
   <title>Sprint Gantt Chart</title>
 </head>
 <body ng-controller="SprintCtrl as sprint">
+  <section class="hide" ng-if="sprint.alert" ng-class="{ show: sprint.alert }">
+    <h4 ng-cloak>Error</h4>
+    <div class="alert alert-danger" ng-bind="sprint.alert"></div>
+  </section>
+
   <section class="hide" ng-class="{ show: sprint.loaded }">
     <h4 ng-cloak>Gantt Chart {{sprint.assignee}}</h4>
 
