@@ -68,7 +68,6 @@ angular.module('app', [])
       let index = attrs.index ? Number(attrs.index) + 1 : 1;
 
       if (pattern.test(location.hash)) {
-        console.log(location.hash.match(pattern)[index])
         model.$setViewValue(location.hash.match(pattern)[index]);
         model.$render();
       }
@@ -96,6 +95,7 @@ angular.module('app', [])
 
       $elem.on('keyup', (e) => {
         $('td.highlight').removeClass('highlight');
+        $elem.removeClass('form-invalid');
 
         if (e.keyCode !== 13) { return; }
 
@@ -121,8 +121,8 @@ angular.module('app', [])
 .service('project', function ($http) {
   const SUCCESS = (response) => response.data;
 
-  this.members = () => {
-    return $http.get('data/members.json').then(SUCCESS);
+  this.members = (id) => {
+    return $http.get(`data/sprint/${id}/members.json`).then(SUCCESS);
   };
   
   this.tasks = (id) => {
@@ -135,13 +135,16 @@ angular.module('app', [])
 })
 
 .controller('SprintCtrl', function ($q, project) {
+  this.loaded = false;
+  this.alert = null;
+
   this.onload = () => {
-    this.loaded = true;
     this.members = sprint._members.slice(1).map((v) => v[0]).sort();
-    this.gantt = sprint.gantt(2017, 4);
+    this.gantt = sprint.gantt(this.year, this.month);
     this.chart = this.gantt.render();
     this.heading = this.chart.slice(0, 2);
     this.tasks = this.chart.slice(2);
+    this.loaded = true;
   };
 
   this.id = (val) => {
@@ -177,12 +180,27 @@ angular.module('app', [])
 
   this.notations = () => this.gantt.members.get(this.assignee).notations;
 
-  $q.all([
-    project.members().then((data) => sprint.members(data)),
-    project.tasks(4).then((data) => sprint.tasks(data)),
-    project.non_working_days(4).then((data) => sprint.non_working_days(data))
-  ])
-  .then(this.onload);
+  this.error = (message) => this.alert = message;
+
+  this.load = () => {
+    let pattern = /^#\/(\d{6})/;
+
+    if (!location.hash || !pattern.test(location.hash)) { return this.error('Incorrect URL path!'); }
+
+    this.date = location.hash.match(pattern)[1];
+    this.year = this.date.slice(0, 4);
+    this.month = this.date.slice(4);
+
+    $q.all([
+      project.members(this.date).then((data) => sprint.members(data)),
+      project.tasks(this.date).then((data) => sprint.tasks(data)),
+      project.non_working_days(this.date).then((data) => sprint.non_working_days(data))
+    ])
+    .then(this.onload)
+    .catch(() => this.error('Failed to load data, please check the URL!'));
+  };
+
+  this.load();
 });
 
 angular.bootstrap(document, ['app']);
