@@ -11,6 +11,12 @@
   <title>Sprint Gantt Chart</title>
 </head>
 <body ng-controller="SprintCtrl as sprint">
+  <section>
+    <div class="alert alert-warning" style="margin-top: 8px;">
+      The tasks may be re-ordered due to importances. Please <b>refresh the page every time</b> to get the latest updates.
+    </div>
+  </section>
+
   <section class="hide" ng-if="sprint.alert" ng-class="{ show: sprint.alert }">
     <h4 ng-cloak>Error</h4>
     <div class="alert alert-danger" ng-bind="sprint.alert"></div>
@@ -23,7 +29,7 @@
       <div class="col-sm-12">
         <div class="toolbar" data-spy="affix" data-offset-top="40">
           <div class="row">
-            <div class="col-md-1">
+            <div class="col-md-2">
               <label for="assignee">Assignee</label>
               <select id="assignee" class="form-control" ng-model="sprint.assignee" hashable format="#\/(\d+)?\/?(\w+)?" index="1">
                 <option value="">All</option>
@@ -36,7 +42,7 @@
               <input id="task" class="form-control" type="text" ng-model="sprint.task" findable>
             </div>
 
-            <div class="col-md-4" ng-if="sprint.selected">
+            <div class="col-md-8" ng-if="sprint.selected">
               Issue #<span ng-bind="sprint.selected.id"></span>
               <span ng-if="sprint.selected.blocked_by">blocked by <span ng-bind="sprint.selected.blocked_by"></span></span>
               <span> - </span>
@@ -56,7 +62,7 @@
 
     <div class="row" ng-if="!sprint.empty()">
       <div class="col-sm-12">
-        <div class="table-sprint-heading-pane" data-spy="affix" data-offset-top="40">
+        <div id="table-sprint-gantt-heading" class="table-container table-container-hide-h-scroll table-sprint-heading-pane" data-spy="affix" data-offset-top="40">
           <table id="table-sprint-heading" class="table table-minimalism table-cramped table-sprint">
             <thead>
               <tr ng-repeat="fields in sprint.heading">
@@ -67,14 +73,16 @@
           </table>
         </div>
 
-        <table class="table table-minimalism table-cramped table-sprint" table-cell-crosshair heading="#table-sprint-heading" column="3">
-          <tbody>
-            <tr id="task-{{sprint.id(task[0])}}" ng-repeat="task in sprint.tasks" ng-hide="!sprint.visible(task)">
-              <td ng-class="sprint.highlight(task[0])"></td>
-              <td ng-repeat="cell in task track by $index" ng-bind="cell" ng-class="sprint.type(cell)" ng-click="sprint.select(task)"></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-container" linked-scroll targets="#table-sprint-gantt-heading" direction="h">
+            <table class="table table-minimalism table-cramped table-sprint" table-cell-crosshair heading="#table-sprint-heading" column="3">
+            <tbody>
+              <tr id="task-{{sprint.id(task[0])}}" ng-repeat="task in sprint.tasks" ng-hide="!sprint.visible(task)">
+                <td ng-class="sprint.highlight(task[0])"></td>
+                <td ng-repeat="cell in task track by $index" ng-bind="cell" ng-class="sprint.type(cell)" ng-click="sprint.select(task)"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </section>
@@ -84,7 +92,7 @@
 
     <div class="row">
       <div class="col-sm-12">
-        <div class="table-sprint-heading-pane" data-spy="affix" data-offset-top="40">
+        <div id="table-sprint-workload-heading" class="table-container table-container-hide-h-scroll table-sprint-heading-pane" data-spy="affix" data-offset-top="40">
           <table id="table-workload-heading" class="table table-minimalism table-cramped table-sprint">
             <thead>
               <tr ng-repeat="fields in sprint.heading">
@@ -97,16 +105,18 @@
           </table>
         </div>
 
-        <table class="table table-minimalism table-cramped table-sprint">
-          <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td ng-repeat="cell in sprint.notations() track by $index" ng-bind="cell" ng-class="sprint.type(cell)"></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-container" linked-scroll targets="#table-sprint-workload-heading" direction="h">
+          <table class="table table-minimalism table-cramped table-sprint">
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td ng-repeat="cell in sprint.notations() track by $index" ng-bind="cell" ng-class="sprint.type(cell)"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </section>
