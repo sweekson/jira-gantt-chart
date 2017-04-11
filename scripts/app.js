@@ -120,17 +120,18 @@ angular.module('app', [])
 
 .service('project', function ($http) {
   const SUCCESS = (response) => response.data;
+  const NO_CACHE = { cache: false };
 
   this.members = (id) => {
-    return $http.get(`data/sprint/${id}/members.json`).then(SUCCESS);
+    return $http.get(`data/sprint/${id}/members.json`, NO_CACHE).then(SUCCESS);
   };
   
   this.tasks = (id) => {
-    return $http.get(`data/sprint/${id}/tasks.json`).then(SUCCESS);
+    return $http.get(`data/sprint/${id}/tasks.json`, NO_CACHE).then(SUCCESS);
   };
 
   this.non_working_days = (id) => {
-    return $http.get(`data/sprint/${id}/non_working_days.json`).then(SUCCESS);
+    return $http.get(`data/sprint/${id}/non_working_days.json`, NO_CACHE).then(SUCCESS);
   };
 })
 
