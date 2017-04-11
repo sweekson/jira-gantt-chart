@@ -38,6 +38,22 @@ section + section {
   margin-top: 123px;
 }
 
+.table-container {
+  overflow: auto;
+}
+
+.table-container-hide-h-scroll {
+  overflow-x: hidden;
+}
+
+.table-container-hide-v-scroll {
+  overflow-y: hidden;
+}
+
+.table-sprint {
+  min-width: 1400px;
+}
+
 .table-sprint > thead > tr > th,
 .table-sprint > tbody > tr > td {
   overflow: visible;
