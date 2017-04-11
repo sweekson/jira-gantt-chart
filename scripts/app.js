@@ -118,6 +118,27 @@ angular.module('app', [])
   };
 })
 
+.directive('linkedScroll', function () {
+  return {
+    restrict: 'A',
+    link: function (scope, elem, attrs, model) {
+      let $elem = $(elem);
+      let $targets = $(attrs.targets);
+      let direction = attrs.direction;
+
+      $elem.on('scroll', (e) => {
+        if (direction === 'h' || direction === 'both') {
+          $targets.scrollLeft($elem.scrollLeft());
+        }
+
+        if (direction === 'v' || direction === 'both') {
+          $targets.scrollTop($elem.scrollTop());
+        }
+      });
+    }
+  };
+})
+
 .service('project', function ($http) {
   const SUCCESS = (response) => response.data;
   const NO_CACHE = { cache: false };
