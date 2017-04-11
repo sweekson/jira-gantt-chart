@@ -76,7 +76,7 @@ section + section {
 
 .table-sprint > thead > tr > th:nth-child(3),
 .table-sprint > tbody > tr > td:nth-child(3) {
-  width: 100px;
+  width: 150px;
 }
 
 .table-sprint > thead > tr > th:nth-child(n+4),
